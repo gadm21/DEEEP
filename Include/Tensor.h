@@ -22,6 +22,7 @@ private:
 public:
     Tensor () = default;
     Tensor (int num_dims, int const * dims) ;
+    Tensor (const Tensor<T> & other);
 
     void view (int new_num_dims, int * new_dims) ;
     void zero () ;
@@ -54,6 +55,19 @@ public:
     Tensor<T> operator*(Tensor<T> & other); //element-wise mutliplication of two 2d tensors
     Tensor<T> operator*(T mutliplier); //multiply every element of the tensor by a value  
     Tensor<T> operator/(T divisor); //divide every element of the tensor by a value
-    
+    Tensor<T> operator-=(Tensor<T> & other) ;
+    Tensor<T> & operator=(const Tensor<T> & other);
+
+    Tensor<T> columnWiseSum();
+    Tensor<T> channelWiseSum();
+
+    //initializes a tensor's value from a distribution 
+    void randn(std::default_random_engine_generator, std::normal_distribution<double> distribution, double mutliplier);
+
+    void print()
+
+
+
+    virtual ~Tensor();
 
 }
