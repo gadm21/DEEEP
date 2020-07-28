@@ -9,6 +9,7 @@
 /**
  * Tensor class _ supports from 1 to 4 dimensions
  * 
+ * data format is in NCHW
  * */
 
 template < typename T>
@@ -42,11 +43,7 @@ public:
 
     // matrix multiplication 
     Tensor<T> matmul(Tensor<T> other) ;
-
-    //2D convolution 
     Tensor<T> convolve2d(Tensor<T> kernels, int stride, int padding, Tensor<T> bias) ;
-
-    //Transpose
     Tensor<T> transpose() ;
 
     T sum();
@@ -55,15 +52,13 @@ public:
     Tensor<T> operator*(Tensor<T> & other); //element-wise mutliplication of two 2d tensors
     Tensor<T> operator*(T mutliplier); //multiply every element of the tensor by a value  
     Tensor<T> operator/(T divisor); //divide every element of the tensor by a value
-    Tensor<T> operator-=(Tensor<T> & other) ;
+    Tensor<T> operator-=(Tensor<T> other) ;
     Tensor<T> & operator=(const Tensor<T> & other);
 
     Tensor<T> columnWiseSum();
-    Tensor<T> channelWiseSum();
-
+    //Tensor<T> channelWiseSum();
     //initializes a tensor's value from a distribution 
     void randn(std::default_random_engine_generator, std::normal_distribution<double> distribution, double mutliplier);
-
     void print()
 
 
