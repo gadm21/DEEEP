@@ -35,5 +35,17 @@ pair<double, Tensor<double> > SoftmaxClassifier::backprop(Tensor<int> ground_tru
 
 double crossEntropy(Tensor<double> & y_hat, vector<int> & y){
     double total = 0;
-    for(int i=0; i<y.size(); i++) 
+    for(int i=0; i<y.size(); i++) {
+        double x = y_hat.get(i, y[i]);
+        total += -log(x<0.0000000001 ? 0.0000000001 : x);
+    }
+
+    return total/y.size();
+}
+
+
+Tensor<double> crossEntropyPrime(Tensor<double> & output, vector<int> & y){
+    Tensor<double> prime = output;
+    for(int i=0; i<y.size(); i++) prime.set(i,y[i], prime.get(i,y[i])-1);
+    return prime / output.dims[0]; // or prime/y.size()
 }
